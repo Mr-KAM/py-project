@@ -10,5 +10,6 @@ to_add=f"python {destination}/py-project.py"
 file=open("py-project.py","w")
 file.write(to_add)
 file.close()
+print(to_add)
 for source in sources:
     shutil.copy(source, destination)
