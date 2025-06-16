@@ -5,6 +5,10 @@ import shutil
 os.chdir(os.getcwd())
 sources = ["py-project.py", "py-project.bat"]
 destination = os.path.dirname(sys.executable)  # Executable de python
-print(destination)
+print(f"Destination python {destination}")
+to_add=f"python {destination}/py-project.py"
+file=open("py-project.py","w")
+file.write(to_add)
+file.close()
 for source in sources:
     shutil.copy(source, destination)
