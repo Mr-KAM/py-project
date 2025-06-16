@@ -1,5 +1,129 @@
 import os
 import datetime
+import shutil
+
+def create_flask_app(base_dir="flask-app"):
+    """Crée la structure d'un projet Flask"""
+    
+    # Structure des dossiers et fichiers
+    structure = {
+        "src": {
+            "templates": {
+                "base.html": """
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% block content %}{% endblock %}
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+""",
+                "index.html": """
+{% extends "base.html" %}
+{% block title %}Accueil{% endblock %}
+{% block content %}
+    <h1>Bienvenue sur Flask App</h1>
+{% endblock %}
+"""
+            },
+            "static": {
+                "css": {
+                    "style.css": "/* Vos styles CSS ici */"
+                },
+                "js": {
+                    "main.js": "// Votre JavaScript ici"
+                }
+            },
+            "routes": {
+                "main.py": """
+from flask import Blueprint, render_template
+
+main = Blueprint('main', __name__)
+
+@main.route('/')
+def index():
+    return render_template('index.html')
+"""
+            },
+            "app.py": """
+from flask import Flask
+from routes.main import main
+
+def create_app():
+    app = Flask(__name__)
+    app.register_blueprint(main)
+    return app
+
+if __name__ == '__main__':
+    app = create_app()
+    app.run(debug=True)
+"""
+        },
+        "tests": {
+            "test_app.py": """
+import pytest
+from src.app import create_app
+
+@pytest.fixture
+def app():
+    app = create_app()
+    return app
+
+def test_index_page(client):
+    response = client.get('/')
+    assert response.status_code == 200
+"""
+        },
+        "requirements.txt": """
+flask==3.0.0
+pytest==7.4.0
+""",
+        "README.md": """
+# Flask App
+
+## Installation
+1. Clone the repository
+2. Create a virtual environment: `python -m venv venv`
+3. Activate the virtual environment
+4. Install dependencies: `pip install -r requirements.txt`
+
+## Running the app
+```
+python src/app.py
+```
+"""
+    }
+
+    try:
+        # Création du dossier principal
+        project_path = os.path.join(os.getcwd(), base_dir)
+        if os.path.exists(project_path):
+            shutil.rmtree(project_path)
+        
+        os.makedirs(project_path)
+
+        def create_structure(current_path, structure):
+            for name, content in structure.items():
+                path = os.path.join(current_path, name)
+                
+                if isinstance(content, dict):
+                    # C'est un dossier
+                    os.makedirs(path, exist_ok=True)
+                    create_structure(path, content)
+                else:
+                    # C'est un fichier
+                    with open(path, 'w', encoding='utf-8') as f:
+                        f.write(content.strip())
+
+        create_structure(project_path, structure)
+        print(f"Projet Flask créé avec succès dans: {project_path}")
+        
+    except Exception as e:
+        print(f"Erreur lors de la création du projet: {str(e)}")
 
 
 def abreviation_mois_annee_actuelle():
