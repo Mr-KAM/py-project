@@ -5,8 +5,8 @@
 ## Installation
 
 1. Sous Windows, ouvrez l'invite de commande en tant qu'**administrateur**.
-![image](https://user-images.githubusercontent.com/67423679/191192653-26d3975a-63fb-41ad-b64e-45f7269342c5.png)
-ou fait le raccourci clavier `windows+R` , saisissez **cmd** dans le champ de saisi qui apparait puis `ctrl+shift+enter`
+   ![image](https://user-images.githubusercontent.com/67423679/191192653-26d3975a-63fb-41ad-b64e-45f7269342c5.png)
+1. ou fait le raccourci clavier `windows+R` , saisissez **cmd** dans le champ de saisi qui apparait puis `ctrl+shift+enter`
 2. Clonez le répertoire du projet **py-project** en exécutant la commande suivante dans l'invite de commande :
 
 ```bash
@@ -17,7 +17,8 @@ git clone https://github.com/Mr-KAM/py-project.git && cd "py-project" && app.bat
 
 Dans votre répertoire de travail, exécutez :
 
-```bash 
+```bash
 py-project
 ```
+
 Cette commande creera un dossier de projet pour vous

@@ -92,6 +92,7 @@ def formated_template(auteur, description):
 
 
 def creer_dossiers_et_fichier(nom_dossier, auteur, description):
+    print("Projet en cours d'execution")
     chemin = os.path.join(os.getcwd(), nom_dossier)
 
     # Créer le dossier spécifié s'il n'existe pas déjà
